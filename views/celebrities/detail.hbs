@@ -4,6 +4,9 @@
 
 <p> {{ celebrity.catchPhrase }} </p>
 <a href="/celebrities">Back to list</a>
+<div>
+  <a href="/celebrities/{{celebrity._id}}/edit">Edit</a>
+</div>
 
 <form action="/celebrities/{{celebrity._id}}/delete" method="post">
   <button type="submit">Delete</button>
