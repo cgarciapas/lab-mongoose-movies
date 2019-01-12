@@ -4,56 +4,56 @@ const Celebrity = require('../models/celebrity.model');
 module.exports.list = (req, res, next) => {
   Movie.find()
     .populate('celebrity')
-    .then((books) => res.render('movie/list', { books }))
+    .then((movies) => res.render('movies/list', { movies }))
 }
 
 module.exports.create = (req, res, next) => {
-  User.find()
-    .then((users) => res.render('books/form', { book: new Book(), users }));
+  Celebrity.find()
+    .then((celebrities) => res.render('movies/form', { movie: new Movie(), celebrities }));
 }
 
 module.exports.doCreate = (req, res, next) => {
-  const book = new Book(req.body);
+  const movie = new Movie(req.body);
 
-  book.save()
-    .then((book) => { res.redirect('/books' )});
+  movie.save()
+    .then((movie) => { res.redirect('/movies' )});
 }
 
 module.exports.edit = (req, res, next) => {
   Promise.all([
-    User.find(),
-    Book.findById(req.params.id)
+    Celebrity.find(),
+    Movie.findById(req.params.id)
   ])
   .then((results) => {
-    const users = results[0];
-    const book = results[1]
+    const celebrities = results[0];
+    const movie = results[1]
 
-    res.render('books/form', { book, users })
+    res.render('movies/form', { movie, celebrities })
   })
 }
 
 module.exports.doEdit = (req, res, next) => {
   Book.findById(req.params.id)
-    .then((book) => {
-      book.set(req.body);
+    .then((movie) => {
+      movie.set(req.body);
 
-      book.save()
-        .then((book) => { res.redirect('/books' )});
+      movie.save()
+        .then((movie) => { res.redirect('/movies' )});
     })
 }
 
 module.exports.get = (req, res, next) => {
-  Book.findById(req.params.id)
-    .then(book => {
+  Movie.findById(req.params.id)
+    .then(movie => {
 
-      User.findById(book.user)
-        .then((user) => res.render('books/detail', { book, user }))
+      Celebrity.findById(movie.celebrity)
+        .then((celebrities) => res.render('movie/detail', { movie, celebrities }))
     });
 }
 
 module.exports.delete = (req, res, next) => {
-  Book.findByIdAndDelete(req.params.id)
-    .then(() => res.redirect('/books'));
+  Movie.findByIdAndDelete(req.params.id)
+    .then(() => res.redirect('/movies'));
 }
 
 

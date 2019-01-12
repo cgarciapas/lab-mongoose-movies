@@ -12,6 +12,10 @@ const schema = new mongoose.Schema({
   plot: {
     type: String
   },
+  celebrity: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Celebrity'
+  },
 }, {
   timestamps: true
 });
